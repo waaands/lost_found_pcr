@@ -1,12 +1,11 @@
 <?php
 
-session_start();
+    session_start();
 
-if (!isset($_SESSION['id_user']))
-{
+    if (! isset($_SESSION['id_user'])) {
     header("Location: ../app/views/auth/login.php");
     exit;
-}
+    }
 
 ?>
 
@@ -42,10 +41,10 @@ if (!isset($_SESSION['id_user']))
             <hr>
 
             <a
-            href="../app/views/laporan/tambah.php"
+            href="../app/views/profile/index.php"
             class="btn btn-success">
 
-                Tambah Laporan
+                Profil Saya
 
             </a>
 

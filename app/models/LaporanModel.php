@@ -56,6 +56,65 @@ class LaporanModel
         );
     }
 
+    public function search($keyword)
+    {
+        $query = "
+        SELECT
+            laporan.*,
+            kategori.nama_kategori,
+            users.nama_lengkap
+        FROM laporan
+
+        JOIN kategori
+        ON laporan.id_kategori =
+        kategori.id_kategori
+
+        JOIN users
+        ON laporan.id_user =
+        users.id_user
+
+        WHERE
+            nama_barang LIKE '%$keyword%'
+            OR
+            deskripsi LIKE '%$keyword%'
+
+        ORDER BY laporan.id_laporan DESC
+        ";
+
+        return mysqli_query(
+            $this->conn,
+            $query
+        );
+    }
+
+    public function filter($jenis)
+    {
+        $query = "
+        SELECT
+            laporan.*,
+            kategori.nama_kategori,
+            users.nama_lengkap
+        FROM laporan
+
+        JOIN kategori
+        ON laporan.id_kategori =
+        kategori.id_kategori
+
+        JOIN users
+        ON laporan.id_user =
+        users.id_user
+
+        WHERE jenis_laporan = '$jenis'
+
+        ORDER BY laporan.id_laporan DESC
+        ";
+
+        return mysqli_query(
+            $this->conn,
+            $query
+        );
+    }
+
     // Ambil semua laporan
     public function getAll()
     {
@@ -86,12 +145,12 @@ class LaporanModel
     // Ambil 1 laporan
     public function getById($id)
     {
-        $query = "
-        SELECT * FROM laporan
-        WHERE id_laporan = '$id'
-        ";
+        $query =
+        "SELECT * FROM laporan
+        WHERE id_laporan='$id'";
 
-        $result = mysqli_query(
+        $result =
+        mysqli_query(
             $this->conn,
             $query
         );
@@ -102,6 +161,24 @@ class LaporanModel
     // Update laporan
     public function update($data)
     {
+        $foto = $data['foto_lama'];
+
+        if($_FILES['foto_barang']['name'] != "")
+        {
+            $foto =
+            $_FILES['foto_barang']['name'];
+
+            $tmp =
+            $_FILES['foto_barang']['tmp_name'];
+
+            move_uploaded_file(
+                $tmp,
+                __DIR__ .
+                "/../../public/uploads/barang/" .
+                $foto
+            );
+        }
+
         $query = "
         UPDATE laporan
         SET
@@ -109,6 +186,7 @@ class LaporanModel
             jenis_laporan = '{$data['jenis_laporan']}',
             nama_barang = '{$data['nama_barang']}',
             deskripsi = '{$data['deskripsi']}',
+            foto_barang = '$foto',
             lokasi = '{$data['lokasi']}',
             tanggal_kejadian = '{$data['tanggal_kejadian']}'
         WHERE id_laporan = '{$data['id_laporan']}'
@@ -148,6 +226,22 @@ class LaporanModel
 
         return mysqli_fetch_assoc($result);
     }
+
+    public function getByUser($id_user)
+    {
+        $query = "
+        SELECT *
+        FROM laporan
+        WHERE id_user = '$id_user'
+        ORDER BY id_laporan DESC
+        ";
+
+        return mysqli_query(
+            $this->conn,
+            $query
+        );
+    }
+
     // Hapus laporan
     public function delete($id)
     {

@@ -1,19 +1,20 @@
 <?php
 
-session_start();
+    session_start();
 
-require_once "../../../config/koneksi.php";
-require_once "../../models/LaporanModel.php";
-require_once "../../models/KategoriModel.php";
 
-$laporanModel = new LaporanModel($conn);
-$kategoriModel = new KategoriModel($conn);
+    require_once "../../../config/koneksi.php";
+    require_once "../../models/LaporanModel.php";
+    require_once "../../models/KategoriModel.php";
 
-$id = $_GET['id'];
+    $laporanModel  = new LaporanModel($conn);
+    $kategoriModel = new KategoriModel($conn);
 
-$laporan = $laporanModel->getById($id);
+    $id = $_GET['id'];
 
-$kategori = $kategoriModel->getAll();
+    $laporan = $laporanModel->getById($id);
+
+    $kategori = $kategoriModel->getAll();
 
 ?>
 
@@ -37,13 +38,19 @@ $kategori = $kategoriModel->getAll();
         <div class="card-body">
 
             <form
-            action="../../controllers/LaporanController.php"
-            method="POST">
+                action="../../controllers/LaporanController.php"
+                method="POST"
+                enctype="multipart/form-data">
 
                 <input
                 type="hidden"
                 name="id_laporan"
-                value="<?= $laporan['id_laporan']; ?>">
+                value="<?php echo $laporan['id_laporan']; ?>">
+
+                <input
+                type="hidden"
+                name="foto_lama"
+                value="<?= $laporan['foto_barang']; ?>">
 
                 <div class="mb-3">
 
@@ -55,7 +62,7 @@ $kategori = $kategoriModel->getAll();
 
                         <option
                         value="kehilangan"
-                        <?= $laporan['jenis_laporan']=='kehilangan' ? 'selected' : ''; ?>>
+                        <?php echo $laporan['jenis_laporan']=='kehilangan' ? 'selected' : ''; ?>>
 
                             Kehilangan
 
@@ -63,7 +70,7 @@ $kategori = $kategoriModel->getAll();
 
                         <option
                         value="penemuan"
-                        <?= $laporan['jenis_laporan']=='penemuan' ? 'selected' : ''; ?>>
+                        <?php echo $laporan['jenis_laporan']=='penemuan' ? 'selected' : ''; ?>>
 
                             Penemuan
 
@@ -82,22 +89,21 @@ $kategori = $kategoriModel->getAll();
                     class="form-control">
 
                         <?php
-                        while($row=mysqli_fetch_assoc($kategori))
-                        {
-                        ?>
+                            while ($row = mysqli_fetch_assoc($kategori)) {
+                            ?>
 
                         <option
-                        value="<?= $row['id_kategori']; ?>"
+                        value="<?php echo $row['id_kategori']; ?>"
 
-                        <?= $laporan['id_kategori']==$row['id_kategori']
-                        ? 'selected'
-                        : ''; ?>>
+                        <?php echo $laporan['id_kategori']==$row['id_kategori']
+        ? 'selected'
+        : ''; ?>>
 
-                        <?= $row['nama_kategori']; ?>
+                        <?php echo $row['nama_kategori']; ?>
 
                         </option>
 
-                        <?php } ?>
+                        <?php }?>
 
                     </select>
 
@@ -111,7 +117,7 @@ $kategori = $kategoriModel->getAll();
                     type="text"
                     name="nama_barang"
                     class="form-control"
-                    value="<?= $laporan['nama_barang']; ?>"
+                    value="<?php echo $laporan['nama_barang']; ?>"
                     required>
 
                 </div>
@@ -122,7 +128,7 @@ $kategori = $kategoriModel->getAll();
 
                     <textarea
                     name="deskripsi"
-                    class="form-control"><?= $laporan['deskripsi']; ?></textarea>
+                    class="form-control"><?php echo $laporan['deskripsi']; ?></textarea>
 
                 </div>
 
@@ -134,7 +140,7 @@ $kategori = $kategoriModel->getAll();
                     type="text"
                     name="lokasi"
                     class="form-control"
-                    value="<?= $laporan['lokasi']; ?>">
+                    value="<?php echo $laporan['lokasi']; ?>">
 
                 </div>
 
@@ -146,10 +152,33 @@ $kategori = $kategoriModel->getAll();
                     type="date"
                     name="tanggal_kejadian"
                     class="form-control"
-                    value="<?= $laporan['tanggal_kejadian']; ?>">
+                    value="<?php echo $laporan['tanggal_kejadian']; ?>">
 
                 </div>
+                <div class="mb-3">
 
+                    <label>Foto Saat Ini</label>
+                    <br>
+
+                    <?php if($laporan['foto_barang'] != "") { ?>
+
+                        <img
+                        src="../../../public/uploads/barang/<?php echo $laporan['foto_barang']; ?>"
+                        width="150">
+
+                    <?php } ?>
+
+                </div>
+                <div class="mb-3">
+
+                    <label>Ganti Foto</label>
+
+                    <input
+                    type="file"
+                    name="foto_barang"
+                    class="form-control">
+
+                </div>
                 <button
                 type="submit"
                 name="update"
@@ -159,13 +188,13 @@ $kategori = $kategoriModel->getAll();
 
                 </button>
 
-                <a
-                href="index.php"
-                class="btn btn-secondary">
+            <a
+            href="../profile/index.php"
+            class="btn btn-secondary">
 
-                    Kembali
+                Kembali
 
-                </a>
+            </a>
 
             </form>
 

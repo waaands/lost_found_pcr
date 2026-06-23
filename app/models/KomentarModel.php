@@ -11,18 +11,38 @@ class KomentarModel
 
     public function insert($data)
     {
+        $foto = "";
+
+        if($_FILES['foto_bukti']['name'] != "")
+        {
+            $foto =
+            $_FILES['foto_bukti']['name'];
+
+            $tmp =
+            $_FILES['foto_bukti']['tmp_name'];
+
+            move_uploaded_file(
+                $tmp,
+                __DIR__ .
+                "/../../public/uploads/bukti/" .
+                $foto
+            );
+        }
+
         $query = "
         INSERT INTO komentar
         (
             id_laporan,
             id_user,
-            isi_komentar
+            isi_komentar,
+            foto_bukti
         )
         VALUES
         (
             '{$data['id_laporan']}',
             '{$data['id_user']}',
-            '{$data['isi_komentar']}'
+            '{$data['isi_komentar']}',
+            '$foto'
         )
         ";
 

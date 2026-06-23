@@ -12,20 +12,18 @@ class LaporanController
     public function __construct($conn)
     {
         $this->laporanModel =
-            new LaporanModel($conn);
+        new LaporanModel($conn);
     }
 
     // TAMBAH
     public function store()
     {
-        if(isset($_POST['simpan']))
-        {
+        if (isset($_POST['simpan'])) {
             $result =
-                $this->laporanModel
+            $this->laporanModel
                 ->insert($_POST);
 
-            if($result)
-            {
+            if ($result) {
                 echo "
                 <script>
                     alert('Laporan berhasil ditambahkan');
@@ -39,18 +37,16 @@ class LaporanController
     // UPDATE
     public function update()
     {
-        if(isset($_POST['update']))
-        {
+        if (isset($_POST['update'])) {
             $result =
-                $this->laporanModel
+            $this->laporanModel
                 ->update($_POST);
 
-            if($result)
-            {
+            if ($result) {
                 echo "
                 <script>
                     alert('Laporan berhasil diupdate');
-                    window.location='../views/laporan/index.php';
+                    window.location='../views/profile/index.php';
                 </script>
                 ";
             }
@@ -60,12 +56,23 @@ class LaporanController
     // DELETE
     public function delete()
     {
-        if(isset($_GET['hapus']))
-        {
+        if (isset($_GET['hapus'])) {
             $id = $_GET['hapus'];
 
+            $laporan =
             $this->laporanModel
-                 ->delete($id);
+                ->getById($id);
+
+            if (
+                $laporan['id_user']
+                !=
+                $_SESSION['id_user']
+            ) {
+                die("Akses Ditolak");
+            }
+
+            $this->laporanModel
+                ->delete($id);
 
             header(
                 "Location: ../views/laporan/index.php"
@@ -75,7 +82,7 @@ class LaporanController
 }
 
 $laporan =
-    new LaporanController($conn);
+new LaporanController($conn);
 
 $laporan->store();
 $laporan->update();

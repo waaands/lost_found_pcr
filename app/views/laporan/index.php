@@ -7,8 +7,25 @@ require_once "../../models/LaporanModel.php";
 
 $model = new LaporanModel($conn);
 
-$laporan = $model->getAll();
-
+    if(isset($_GET['keyword']))
+    {
+        $laporan =
+        $model->search(
+            $_GET['keyword']
+        );
+    }
+    elseif(isset($_GET['jenis']))
+    {
+        $laporan =
+        $model->filter(
+            $_GET['jenis']
+        );
+    }
+    else
+    {
+        $laporan =
+        $model->getAll();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -26,14 +43,53 @@ $laporan = $model->getAll();
 
         <h3>Daftar Laporan</h3>
 
-        <a
-        href="tambah.php"
-        class="btn btn-success">
+    <form method="GET" class="mb-3">
 
-            Tambah Laporan
+        <div class="input-group">
 
-        </a>
+            <input
+            type="text"
+            name="keyword"
+            class="form-control"
+            placeholder="Cari barang...">
 
+            <button
+            class="btn btn-primary">
+
+                Cari
+
+            </button>
+
+        </div>
+        <div class="mb-3">
+
+            <a
+            href="index.php"
+            class="btn btn-secondary">
+
+                Semua
+
+            </a>
+
+            <a
+            href="?jenis=kehilangan"
+            class="btn btn-danger">
+
+                Kehilangan
+
+            </a>
+
+            <a
+            href="?jenis=penemuan"
+            class="btn btn-success">
+
+                Penemuan
+
+            </a>
+
+        </div>
+
+    </form>
     </div>
 
     <table class="table table-bordered">
@@ -111,27 +167,8 @@ $laporan = $model->getAll();
                     <a
                     href="detail.php?id=<?= $row['id_laporan']; ?>"
                     class="btn btn-info btn-sm">
-
                     Detail
-
                     </a>
-                    <a
-                    href="edit.php?id=<?= $row['id_laporan']; ?>"
-                    class="btn btn-warning btn-sm">
-
-                        Edit
-
-                    </a>
-
-                    <a
-                    href="../../controllers/LaporanController.php?hapus=<?= $row['id_laporan']; ?>"
-                    class="btn btn-danger btn-sm"
-                    onclick="return confirm('Hapus data?')">
-
-                        Hapus
-
-                    </a>
-
                 </td>
 
             </tr>

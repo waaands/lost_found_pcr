@@ -1,177 +1,199 @@
 <?php
 
-    session_start();
+session_start();
 
-    require_once "../../../config/koneksi.php";
-    require_once "../../models/LaporanModel.php";
-    require_once "../../models/KomentarModel.php";
+require_once "../../../config/koneksi.php";
+require_once "../../models/LaporanModel.php";
+require_once "../../models/KomentarModel.php";
 
-    $model = new LaporanModel($conn);
+$model = new LaporanModel($conn);
 
-    $id = $_GET['id'];
+$id = $_GET['id'];
 
-    $data = $model->getDetail($id);
-    $komentarModel = new KomentarModel($conn);
-    $komentar = $komentarModel->getByLaporan($id);
+$data = $model->getDetail($id);
+
+$komentarModel = new KomentarModel($conn);
+$komentar = $komentarModel->getByLaporan($id);
+
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
 
-<title>Detail Laporan</title>
+    <title>Detail Laporan</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
 </head>
+
 <body>
 
 <div class="container mt-5">
 
-<div class="card">
+    <div class="card">
 
-<div class="card-header">
+        <div class="card-header">
 
-Detail Laporan
+            Detail Laporan
 
-</div>
+        </div>
 
-<div class="card-body">
+        <div class="card-body">
 
-<?php if ($data['foto_barang']) {?>
+            <?php if ($data['foto_barang']) { ?>
 
-<img
-src="../../../public/uploads/barang/<?php echo $data['foto_barang']; ?>"
-width="300"
-class="mb-3">
+                <img
+                    src="../../../public/uploads/barang/<?php echo $data['foto_barang']; ?>"
+                    width="300"
+                    class="mb-3">
 
-<?php }?>
+            <?php } ?>
 
-<h4>
+            <h4>
 
-<?php echo $data['nama_barang']; ?>
+                <?php echo $data['nama_barang']; ?>
 
-</h4>
+            </h4>
 
-<p>
+            <p>
+                <b>Kategori :</b>
+                <?php echo $data['nama_kategori']; ?>
+            </p>
 
-<b>Kategori :</b>
-<?php echo $data['nama_kategori']; ?>
+            <p>
+                <b>Pelapor :</b>
+                <?php echo $data['nama_lengkap']; ?>
+            </p>
 
-</p>
+            <p>
+                <b>Jenis :</b>
+                <?php echo $data['jenis_laporan']; ?>
+            </p>
 
-<p>
+            <p>
+                <b>Status :</b>
+                <?= $data['status_laporan']; ?>
+            </p>
+            
+            <p>
+                <b>Lokasi :</b>
+                <?php echo $data['lokasi']; ?>
+            </p>
 
-<b>Pelapor :</b>
-<?php echo $data['nama_lengkap']; ?>
+            <p>
+                <b>Tanggal :</b>
+                <?php echo $data['tanggal_kejadian']; ?>
+            </p>
 
-</p>
+            <p>
+                <b>Deskripsi :</b><br>
 
-<p>
+                <?php echo $data['deskripsi']; ?>
+            </p>
 
-<b>Jenis :</b>
-<?php echo $data['jenis_laporan']; ?>
+            <hr>
 
-</p>
+            <h4>Komentar</h4>
 
-<p>
+            <form
+                action="../../controllers/KomentarController.php"
+                method="POST"
+                enctype="multipart/form-data">
 
-<b>Lokasi :</b>
-<?php echo $data['lokasi']; ?>
+                <input
+                    type="hidden"
+                    name="id_laporan"
+                    value="<?= $data['id_laporan']; ?>">
 
-</p>
+                <input
+                    type="hidden"
+                    name="id_user"
+                    value="<?= $_SESSION['id_user']; ?>">
 
-<p>
+                <div class="mb-3">
 
-<b>Tanggal :</b>
-<?php echo $data['tanggal_kejadian']; ?>
+                    <textarea
+                        name="isi_komentar"
+                        class="form-control"
+                        required></textarea>
 
-</p>
+                </div>
 
-<p>
+                <div class="mb-3">
 
-<b>Deskripsi :</b><br>
+                    <label>Foto Bukti (Opsional)</label>
 
-<?php echo $data['deskripsi']; ?>
+                    <input
+                        type="file"
+                        name="foto_bukti"
+                        class="form-control">
 
-</p>
-<hr>
+                </div>
 
-<h4>Komentar</h4>
+                <button
+                    type="submit"
+                    name="kirim"
+                    class="btn btn-primary">
 
-<form
-action="../../controllers/KomentarController.php"
-method="POST">
+                    Kirim Komentar
 
-    <input
-    type="hidden"
-    name="id_laporan"
-    value="<?= $data['id_laporan']; ?>">
+                </button>
 
-    <input
-    type="hidden"
-    name="id_user"
-    value="<?= $_SESSION['id_user']; ?>">
+            </form>
 
-    <div class="mb-3">
+            <?php
+            while ($row = mysqli_fetch_assoc($komentar))
+            {
+            ?>
 
-        <textarea
-        name="isi_komentar"
-        class="form-control"
-        required>
-        </textarea>
+                <div class="card mt-3">
+
+                    <div class="card-body">
+
+                        <b>
+
+                            <?= $row['nama_lengkap']; ?>
+
+                        </b>
+
+                        <br><br>
+
+                        <?= $row['isi_komentar']; ?>
+
+                        <?php if ($row['foto_bukti'] != "") { ?>
+
+                            <br><br>
+
+                            <img
+                                src="../../../public/uploads/bukti/<?= $row['foto_bukti']; ?>"
+                                width="200"
+                                class="img-thumbnail">
+
+                        <?php } ?>
+
+                    </div>
+
+                </div>
+
+            <?php } ?>
+
+            <hr>
+
+            <a
+                href="../profile/index.php"
+                class="btn btn-secondary">
+
+                Kembali
+
+            </a>
+
+        </div>
 
     </div>
-
-    <button
-    type="submit"
-    name="kirim"
-    class="btn btn-primary">
-
-        Kirim Komentar
-
-    </button>
-
-</form>
-<?php
-while(
-$row =
-mysqli_fetch_assoc($komentar)
-)
-{
-?>
-
-<div class="card mt-2">
-
-    <div class="card-body">
-
-        <b>
-
-        <?= $row['nama_lengkap']; ?>
-
-        </b>
-
-        <br><br>
-
-        <?= $row['isi_komentar']; ?>
-
-    </div>
-
-</div>
-
-<?php } ?>
-<hr>
-<a
-href="index.php"
-class="btn btn-secondary">
-
-Kembali
-
-</a>
-
-</div>
-
-</div>
 
 </div>
 
