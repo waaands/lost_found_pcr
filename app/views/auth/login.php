@@ -21,9 +21,7 @@
 
                 <div class="card-body">
 
-                    <form
-                    action="../../controllers/AuthController.php"
-                    method="POST">
+                    <form action="index.php?aksi=prosesLogin" method="POST">
 
                         <div class="mb-3">
                             <label>Email</label>
@@ -55,7 +53,7 @@
                         </button>
 
                         <a
-                        href="register.php"
+                        href="index.php?aksi=register"
                         class="btn btn-success">
 
                             Register

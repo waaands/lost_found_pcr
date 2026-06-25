@@ -1,9 +1,7 @@
 <?php
 
-session_start();
-
-require_once "../../../config/koneksi.php";
-require_once "../../models/LaporanModel.php";
+require_once "../config/koneksi.php";
+require_once "../app/models/LaporanModel.php";
 
 $model = new LaporanModel($conn);
 
@@ -52,7 +50,7 @@ $laporan = $model->getByUser($id_user);
         <h4>Laporan Saya</h4>
 
         <a
-        href="../laporan/tambah.php"
+        href="index.php?aksi=tambah"
         class="btn btn-success">
 
             Tambah Laporan
@@ -109,7 +107,7 @@ $laporan = $model->getByUser($id_user);
             <td>
                 <?php if($row['foto_barang'] != ""){ ?>
                 <img
-                src="../../../public/uploads/barang/<?= $row['foto_barang']; ?>"
+                src="uploads/barang/<?= $row['foto_barang']; ?>"
                 width="100">
                 <?php } ?>
             </td>
@@ -121,7 +119,7 @@ $laporan = $model->getByUser($id_user);
             <td>
 
                 <a
-                href="../laporan/detail.php?id=<?= $row['id_laporan']; ?>"
+                href="index.php?aksi=detail&id=<?= $row['id_laporan']; ?>"
                 class="btn btn-info btn-sm">
 
                     Detail
@@ -129,7 +127,7 @@ $laporan = $model->getByUser($id_user);
                 </a>
 
                 <a
-                href="../laporan/edit.php?id=<?= $row['id_laporan']; ?>"
+                href="index.php?aksi=edit&id=<?= $row['id_laporan']; ?>"
                 class="btn btn-warning btn-sm">
 
                     Edit
@@ -137,7 +135,7 @@ $laporan = $model->getByUser($id_user);
                 </a>
 
                 <a
-                href="../../controllers/LaporanController.php?hapus=<?= $row['id_laporan']; ?>"
+                href="index.php?aksi=hapus&id=<?= $row['id_laporan']; ?>"
                 class="btn btn-danger btn-sm"
                 onclick="return confirm('Hapus data?')">
 
@@ -156,7 +154,7 @@ $laporan = $model->getByUser($id_user);
     </table>
 
     <a
-    href="../../../public/index.php"
+    href="index.php?aksi=dashboard"
     class="btn btn-secondary">
 
         Dashboard

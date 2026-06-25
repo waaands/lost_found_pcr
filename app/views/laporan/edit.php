@@ -1,11 +1,8 @@
 <?php
 
-    session_start();
-
-
-    require_once "../../../config/koneksi.php";
-    require_once "../../models/LaporanModel.php";
-    require_once "../../models/KategoriModel.php";
+    require_once "../config/koneksi.php";
+    require_once "../app/models/LaporanModel.php";
+    require_once "../app/models/KategoriModel.php";
 
     $laporanModel  = new LaporanModel($conn);
     $kategoriModel = new KategoriModel($conn);
@@ -38,7 +35,7 @@
         <div class="card-body">
 
             <form
-                action="../../controllers/LaporanController.php"
+                action="index.php?aksi=update"
                 method="POST"
                 enctype="multipart/form-data">
 
@@ -163,7 +160,7 @@
                     <?php if($laporan['foto_barang'] != "") { ?>
 
                         <img
-                        src="../../../public/uploads/barang/<?php echo $laporan['foto_barang']; ?>"
+                        src="uploads/barang/<?php echo $laporan['foto_barang']; ?>"
                         width="150">
 
                     <?php } ?>
@@ -189,7 +186,7 @@
                 </button>
 
             <a
-            href="../profile/index.php"
+            href="index.php?aksi=profile"
             class="btn btn-secondary">
 
                 Kembali

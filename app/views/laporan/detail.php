@@ -1,22 +1,3 @@
-<?php
-
-session_start();
-
-require_once "../../../config/koneksi.php";
-require_once "../../models/LaporanModel.php";
-require_once "../../models/KomentarModel.php";
-
-$model = new LaporanModel($conn);
-
-$id = $_GET['id'];
-
-$data = $model->getDetail($id);
-
-$komentarModel = new KomentarModel($conn);
-$komentar = $komentarModel->getByLaporan($id);
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -47,7 +28,7 @@ $komentar = $komentarModel->getByLaporan($id);
             <?php if ($data['foto_barang']) { ?>
 
                 <img
-                    src="../../../public/uploads/barang/<?php echo $data['foto_barang']; ?>"
+                    src="uploads/barang/<?php echo $data['foto_barang']; ?>"
                     width="300"
                     class="mb-3">
 
@@ -99,8 +80,8 @@ $komentar = $komentarModel->getByLaporan($id);
 
             <h4>Komentar</h4>
 
-            <form
-                action="../../controllers/KomentarController.php"
+            <<form
+                action="index.php?aksi=komentar"
                 method="POST"
                 enctype="multipart/form-data">
 
@@ -169,7 +150,7 @@ $komentar = $komentarModel->getByLaporan($id);
                             <br><br>
 
                             <img
-                                src="../../../public/uploads/bukti/<?= $row['foto_bukti']; ?>"
+                                src="uploads/bukti/<?= $row['foto_bukti']; ?>"
                                 width="200"
                                 class="img-thumbnail">
 
@@ -184,7 +165,7 @@ $komentar = $komentarModel->getByLaporan($id);
             <hr>
 
             <a
-                href="../profile/index.php"
+                href="index.php?aksi=laporan"
                 class="btn btn-secondary">
 
                 Kembali

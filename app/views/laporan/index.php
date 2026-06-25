@@ -1,33 +1,3 @@
-<?php
-
-session_start();
-
-require_once "../../../config/koneksi.php";
-require_once "../../models/LaporanModel.php";
-
-$model = new LaporanModel($conn);
-
-    if(isset($_GET['keyword']))
-    {
-        $laporan =
-        $model->search(
-            $_GET['keyword']
-        );
-    }
-    elseif(isset($_GET['jenis']))
-    {
-        $laporan =
-        $model->filter(
-            $_GET['jenis']
-        );
-    }
-    else
-    {
-        $laporan =
-        $model->getAll();
-    }
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,8 +13,11 @@ $model = new LaporanModel($conn);
 
         <h3>Daftar Laporan</h3>
 
-    <form method="GET" class="mb-3">
-
+    <form action="index.php" method="GET" class="mb-3">
+        <input
+            type="hidden"
+            name="aksi"
+            value="laporan">
         <div class="input-group">
 
             <input
@@ -64,7 +37,7 @@ $model = new LaporanModel($conn);
         <div class="mb-3">
 
             <a
-            href="index.php"
+            href="index.php?aksi=laporan"
             class="btn btn-secondary">
 
                 Semua
@@ -72,7 +45,7 @@ $model = new LaporanModel($conn);
             </a>
 
             <a
-            href="?jenis=kehilangan"
+            href="index.php?aksi=laporan&jenis=kehilangan"
             class="btn btn-danger">
 
                 Kehilangan
@@ -80,7 +53,7 @@ $model = new LaporanModel($conn);
             </a>
 
             <a
-            href="?jenis=penemuan"
+            href="index.php?aksi=laporan&jenis=penemuan"
             class="btn btn-success">
 
                 Penemuan
@@ -151,7 +124,7 @@ $model = new LaporanModel($conn);
                 <td>
                     <?php if($row['foto_barang'] != ""){ ?>
                     <img
-                    src="../../../public/uploads/barang/<?= $row['foto_barang']; ?>"
+                    src="uploads/barang/<?= $row['foto_barang']; ?>"
                     width="100">
                     <?php } ?>
                     </td>
@@ -165,7 +138,7 @@ $model = new LaporanModel($conn);
 
                 <td>
                     <a
-                    href="detail.php?id=<?= $row['id_laporan']; ?>"
+                    href="index.php?aksi=detail&id=<?= $row['id_laporan']; ?>"
                     class="btn btn-info btn-sm">
                     Detail
                     </a>
@@ -180,7 +153,7 @@ $model = new LaporanModel($conn);
     </table>
 
     <a
-    href="../../../public/index.php"
+    href="index.php?aksi=dashboard"
     class="btn btn-secondary">
 
         Kembali Dashboard

@@ -21,9 +21,7 @@
 
                 <div class="card-body">
 
-                    <form
-                    action="../../controllers/AuthController.php"
-                    method="POST">
+                    <form action="index.php?aksi=prosesRegister" method="POST">
 
                         <div class="mb-3">
                             <label>NIM</label>
@@ -71,7 +69,7 @@
                         </button>
 
                         <a
-                        href="login.php"
+                        href="index.php?aksi=login"
                         class="btn btn-primary">
 
                             Login

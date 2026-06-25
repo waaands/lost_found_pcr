@@ -1,9 +1,7 @@
 <?php
 
-    session_start();
-
-    require_once "../../../config/koneksi.php";
-    require_once "../../models/KategoriModel.php";
+    require_once "../config/koneksi.php";
+    require_once "../app/models/KategoriModel.php";
 
     $model = new KategoriModel($conn);
 
@@ -31,7 +29,7 @@
         <div class="card-body">
 
             <form
-            action="../../controllers/LaporanController.php"
+            action="index.php?aksi=simpan"
             method="POST"
             enctype="multipart/form-data">
 
@@ -154,7 +152,7 @@
                 </button>
 
                 <a
-                href="../../../public/index.php"
+                href="index.php?aksi=profile"
                 class="btn btn-secondary">
 
                     Kembali

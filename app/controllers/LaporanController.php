@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once __DIR__ . "/../../config/koneksi.php";
 require_once __DIR__ . "/../models/LaporanModel.php";
 
@@ -15,9 +13,54 @@ class LaporanController
         new LaporanModel($conn);
     }
 
-    // TAMBAH
-    public function store()
+        // HALAMAN DAFTAR LAPORAN
+    public function index()
     {
+        if(isset($_GET['keyword']))
+        {
+            $laporan = $this->laporanModel->search($_GET['keyword']);
+        }
+        elseif(isset($_GET['jenis']))
+        {
+            $laporan = $this->laporanModel->filter($_GET['jenis']);
+        }
+        else
+        {
+            $laporan = $this->laporanModel->getAll();
+        }
+
+        require __DIR__ . "/../views/laporan/index.php";
+    }
+
+    // HALAMAN DETAIL
+    public function detail()
+    {
+        $id = $_GET['id'];
+
+        $data = $this->laporanModel->getDetail($id);
+
+        require_once __DIR__ . "/../models/KomentarModel.php";
+
+        $komentarModel = new KomentarModel($GLOBALS['conn']);
+        $komentar = $komentarModel->getByLaporan($id);
+
+        require __DIR__ . "/../views/laporan/detail.php";
+    }
+
+    // HALAMAN TAMBAH
+    public function tambah()
+    {
+        require __DIR__ . "/../views/laporan/tambah.php";
+    }
+
+    // HALAMAN EDIT
+    public function edit()
+    {
+        require __DIR__ . "/../views/laporan/edit.php";
+    }
+
+    // TAMBAH
+    public function simpan()    {
         if (isset($_POST['simpan'])) {
             $result =
             $this->laporanModel
@@ -27,7 +70,7 @@ class LaporanController
                 echo "
                 <script>
                     alert('Laporan berhasil ditambahkan');
-                    window.location='../views/laporan/index.php';
+                    window.location='index.php?aksi=profile';
                 </script>
                 ";
             }
@@ -46,7 +89,7 @@ class LaporanController
                 echo "
                 <script>
                     alert('Laporan berhasil diupdate');
-                    window.location='../views/profile/index.php';
+                    window.location='index.php?aksi=profile';
                 </script>
                 ";
             }
@@ -54,7 +97,7 @@ class LaporanController
     }
 
     // DELETE
-    public function delete()
+    public function hapus()
     {
         if (isset($_GET['hapus'])) {
             $id = $_GET['hapus'];
@@ -74,16 +117,8 @@ class LaporanController
             $this->laporanModel
                 ->delete($id);
 
-            header(
-                "Location: ../views/laporan/index.php"
-            );
+            header("Location: index.php?aksi=profile");
+            exit;
         }
     }
 }
-
-$laporan =
-new LaporanController($conn);
-
-$laporan->store();
-$laporan->update();
-$laporan->delete();
