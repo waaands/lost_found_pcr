@@ -1,14 +1,3 @@
-<?php
-
-    require_once "../config/koneksi.php";
-    require_once "../app/models/KategoriModel.php";
-
-    $model = new KategoriModel($conn);
-
-    $kategori = $model->getAll();
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>

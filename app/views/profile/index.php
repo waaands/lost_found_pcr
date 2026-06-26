@@ -1,8 +1,5 @@
 <?php
 
-require_once "../config/koneksi.php";
-require_once "../app/models/LaporanModel.php";
-
 $model = new LaporanModel($conn);
 
 $id_user = $_SESSION['id_user'];
@@ -107,7 +104,7 @@ $laporan = $model->getByUser($id_user);
             <td>
                 <?php if($row['foto_barang'] != ""){ ?>
                 <img
-                src="uploads/barang/<?= $row['foto_barang']; ?>"
+                src="public/uploads/barang/<?= $row['foto_barang']; ?>"
                 width="100">
                 <?php } ?>
             </td>
@@ -119,7 +116,7 @@ $laporan = $model->getByUser($id_user);
             <td>
 
                 <a
-                href="index.php?aksi=detail&id=<?= $row['id_laporan']; ?>"
+                href="index.php?aksi=detail&id=<?= $row['id_laporan']; ?>&from=profile"
                 class="btn btn-info btn-sm">
 
                     Detail

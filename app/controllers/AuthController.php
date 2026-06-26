@@ -84,9 +84,10 @@ class AuthController
     // Logout
     public function logout()
     {
+        session_unset();
         session_destroy();
 
-        header("Location: index.php?aksi=login");
+        header("Location: index.php?aksi=dashboard");
         exit;
     }
 }

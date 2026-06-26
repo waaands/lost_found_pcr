@@ -28,7 +28,7 @@
             <?php if ($data['foto_barang']) { ?>
 
                 <img
-                    src="uploads/barang/<?php echo $data['foto_barang']; ?>"
+                    src="public/uploads/barang/<?php echo $data['foto_barang']; ?>"
                     width="300"
                     class="mb-3">
 
@@ -80,7 +80,9 @@
 
             <h4>Komentar</h4>
 
-            <<form
+            <?php if(isset($_SESSION['id_user'])) { ?>
+
+            <form
                 action="index.php?aksi=komentar"
                 method="POST"
                 enctype="multipart/form-data">
@@ -126,6 +128,18 @@
 
             </form>
 
+            <?php } else { ?>
+
+            <div class="alert alert-warning">
+                Silakan login terlebih dahulu untuk memberikan komentar.
+            </div>
+
+            <a href="index.php?aksi=login" class="btn btn-primary">
+                Login
+            </a>
+
+            <?php } ?>
+
             <?php
             while ($row = mysqli_fetch_assoc($komentar))
             {
@@ -150,7 +164,7 @@
                             <br><br>
 
                             <img
-                                src="uploads/bukti/<?= $row['foto_bukti']; ?>"
+                                src="public/uploads/bukti/<?= $row['foto_bukti']; ?>"
                                 width="200"
                                 class="img-thumbnail">
 
@@ -164,12 +178,14 @@
 
             <hr>
 
+            <?php
+            $from = isset($_GET['from']) ? $_GET['from'] : 'laporan';
+            ?>
+
             <a
-                href="index.php?aksi=laporan"
-                class="btn btn-secondary">
-
+            href="index.php?aksi=<?= $from; ?>"
+            class="btn btn-secondary">
                 Kembali
-
             </a>
 
         </div>

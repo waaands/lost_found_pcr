@@ -50,12 +50,27 @@ class LaporanController
     // HALAMAN TAMBAH
     public function tambah()
     {
+        require_once __DIR__ . "/../models/KategoriModel.php";
+
+        $kategoriModel = new KategoriModel($GLOBALS['conn']);
+
+        $kategori = $kategoriModel->getAll();
+
         require __DIR__ . "/../views/laporan/tambah.php";
     }
 
     // HALAMAN EDIT
     public function edit()
     {
+        require_once __DIR__ . "/../models/KategoriModel.php";
+
+        $id = $_GET['id'];
+
+        $laporan = $this->laporanModel->getById($id);
+
+        $kategoriModel = new KategoriModel($GLOBALS['conn']);
+        $kategori = $kategoriModel->getAll();
+
         require __DIR__ . "/../views/laporan/edit.php";
     }
 
@@ -97,28 +112,19 @@ class LaporanController
     }
 
     // DELETE
-    public function hapus()
+public function hapus()
     {
-        if (isset($_GET['hapus'])) {
-            $id = $_GET['hapus'];
+        $id = $_GET['id'];
 
-            $laporan =
-            $this->laporanModel
-                ->getById($id);
+        $laporan = $this->laporanModel->getById($id);
 
-            if (
-                $laporan['id_user']
-                !=
-                $_SESSION['id_user']
-            ) {
-                die("Akses Ditolak");
-            }
-
-            $this->laporanModel
-                ->delete($id);
-
-            header("Location: index.php?aksi=profile");
-            exit;
+        if ($laporan['id_user'] != $_SESSION['id_user']) {
+            die("Akses Ditolak");
         }
+
+        $this->laporanModel->delete($id);
+
+        header("Location: index.php?aksi=profile");
+        exit;
     }
 }

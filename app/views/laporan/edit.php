@@ -1,20 +1,3 @@
-<?php
-
-    require_once "../config/koneksi.php";
-    require_once "../app/models/LaporanModel.php";
-    require_once "../app/models/KategoriModel.php";
-
-    $laporanModel  = new LaporanModel($conn);
-    $kategoriModel = new KategoriModel($conn);
-
-    $id = $_GET['id'];
-
-    $laporan = $laporanModel->getById($id);
-
-    $kategori = $kategoriModel->getAll();
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -160,7 +143,7 @@
                     <?php if($laporan['foto_barang'] != "") { ?>
 
                         <img
-                        src="uploads/barang/<?php echo $laporan['foto_barang']; ?>"
+                        src="public/uploads/barang/<?php echo $laporan['foto_barang']; ?>"
                         width="150">
 
                     <?php } ?>

@@ -124,7 +124,7 @@
                 <td>
                     <?php if($row['foto_barang'] != ""){ ?>
                     <img
-                    src="uploads/barang/<?= $row['foto_barang']; ?>"
+                    src="public/uploads/barang/<?= $row['foto_barang']; ?>"
                     width="100">
                     <?php } ?>
                     </td>
@@ -138,7 +138,7 @@
 
                 <td>
                     <a
-                    href="index.php?aksi=detail&id=<?= $row['id_laporan']; ?>"
+                    href="index.php?aksi=detail&id=<?= $row['id_laporan']; ?>&from=laporan"
                     class="btn btn-info btn-sm">
                     Detail
                     </a>
