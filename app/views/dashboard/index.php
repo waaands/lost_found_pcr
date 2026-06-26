@@ -20,43 +20,47 @@
 
         <div class="card-body">
 
-        <?php if(isset($_SESSION['id_user'])) { ?>
+    <?php if(isset($_SESSION['id_user'])) { ?>
 
-            <h4>
-                Selamat Datang,
-                <?= $_SESSION['nama']; ?>
-            </h4>
+        <h4>
+            Selamat Datang,
+            <?= $_SESSION['nama']; ?>
+        </h4>
 
-            <p>
-                Role :
-                <?= $_SESSION['role']; ?>
-            </p>
+        <p>
+            Role :
+            <?= $_SESSION['role']; ?>
+        </p>
 
-            <hr>
+        <hr>
 
-            <a
-            href="index.php?aksi=profile"
-            class="btn btn-success">
+        <a
+        href="index.php?aksi=profile"
+        class="btn btn-success">
+            Profil Saya
+        </a>
 
-                Profil Saya
+        <a
+        href="index.php?aksi=laporan"
+        class="btn btn-primary">
+            Daftar Laporan
+        </a>
 
-            </a>
-
-            <a
-            href="index.php?aksi=laporan"
-            class="btn btn-primary">
-
-                Daftar Laporan
-
-            </a>
+        <?php if($_SESSION['role'] == "admin") { ?>
 
             <a
-            href="index.php?aksi=logout"
-            class="btn btn-danger">
-
-                Logout
-
+            href="index.php?aksi=admin"
+            class="btn btn-warning">
+                Panel Admin
             </a>
+
+        <?php } ?>
+
+        <a
+        href="index.php?aksi=logout"
+        class="btn btn-danger">
+            Logout
+        </a>
 
         <?php } else { ?>
 

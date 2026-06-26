@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2026 at 05:49 PM
+-- Generation Time: Jun 26, 2026 at 06:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -67,7 +67,10 @@ CREATE TABLE `komentar` (
 
 INSERT INTO `komentar` (`id_komentar`, `id_laporan`, `id_user`, `isi_komentar`, `foto_bukti`, `created_at`) VALUES
 (1, 2, 5, '        hi', NULL, '2026-06-16 06:16:38'),
-(2, 4, 5, 'ini?', 'ikan.png', '2026-06-23 15:13:36');
+(2, 4, 5, 'ini?', 'ikan.png', '2026-06-23 15:13:36'),
+(3, 5, 6, 'di baak bg', '', '2026-06-24 05:10:27'),
+(4, 4, 5, 'hi', '', '2026-06-26 02:50:45'),
+(5, 4, 5, 'hayo', 'ikan.png', '2026-06-26 02:51:00');
 
 -- --------------------------------------------------------
 
@@ -96,7 +99,8 @@ CREATE TABLE `laporan` (
 
 INSERT INTO `laporan` (`id_laporan`, `id_user`, `id_kategori`, `jenis_laporan`, `nama_barang`, `deskripsi`, `foto_barang`, `lokasi`, `tanggal_kejadian`, `status_barang`, `status_laporan`, `created_at`) VALUES
 (2, 5, 2, 'penemuan', 'laprak', '                    ini ikan', 'dkjlh.png', 'gsg', '2026-06-16', 'dipegang_sendiri', 'aktif', '2026-06-16 06:07:43'),
-(4, 6, 1, 'kehilangan', 'tes anu', 'anu', 'ikan.png', 'gsg', '2026-06-03', 'dipegang_sendiri', 'aktif', '2026-06-23 13:57:17');
+(4, 6, 1, 'kehilangan', 'tes anu', 'anu', 'ikan.png', 'gsg', '2026-06-03', 'dipegang_sendiri', 'aktif', '2026-06-23 13:57:17'),
+(5, 5, 5, 'penemuan', 'tas', '                    tas hilang warna hitam', 'bas.jpg', 'amphi', '2026-06-24', 'dipegang_sendiri', 'aktif', '2026-06-24 05:09:25');
 
 -- --------------------------------------------------------
 
@@ -197,13 +201,13 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `laporan`
 --
 ALTER TABLE `laporan`
-  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `serah_terima`

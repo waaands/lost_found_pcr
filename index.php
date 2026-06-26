@@ -9,12 +9,14 @@ require_once "app/controllers/DashboardController.php";
 require_once "app/controllers/ProfileController.php";
 require_once "app/controllers/LaporanController.php";
 require_once "app/controllers/KomentarController.php";
+require_once "app/controllers/AdminController.php";
 
 $auth = new AuthController($conn);
 $dashboard = new DashboardController();
 $profile = new ProfileController();
 $laporan = new LaporanController($conn);
 $komentar = new KomentarController($conn);
+$admin = new AdminController();
 
 $aksi = isset($_GET['aksi']) ? $_GET['aksi'] : 'dashboard';
 
@@ -25,7 +27,10 @@ $aksi = isset($_GET['aksi']) ? $_GET['aksi'] : 'dashboard';
         'edit',
         'update',
         'hapus',
-        'komentar'
+        'komentar',
+        'admin_laporan',
+        'admin_user',
+        'admin'
     ];
 
     if (
@@ -34,6 +39,20 @@ $aksi = isset($_GET['aksi']) ? $_GET['aksi'] : 'dashboard';
     )
     {
         header("Location: index.php?aksi=login");
+        exit;
+    }
+
+    if (
+        in_array($aksi, ['admin', 'admin_laporan', 'admin_user'])
+        && $_SESSION['role'] != "admin"
+    )
+    {
+        echo "
+        <script>
+            alert('Akses ditolak!');
+            window.location='index.php?aksi=dashboard';
+        </script>
+        ";
         exit;
     }
 
@@ -102,6 +121,19 @@ switch ($aksi)
     // KOMENTAR
     case 'komentar':
         $komentar->simpan();
+        break;
+
+    // ADMIN
+    case 'admin':
+        $admin->index();
+        break;  
+
+    case 'admin_laporan':
+        $admin->laporan();
+        break;
+
+    case 'admin_user':
+        $admin->user();
         break;
 
     default:

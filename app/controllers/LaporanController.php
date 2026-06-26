@@ -112,7 +112,7 @@ class LaporanController
     }
 
     // DELETE
-public function hapus()
+    public function hapus()
     {
         $id = $_GET['id'];
 
