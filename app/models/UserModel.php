@@ -62,4 +62,15 @@ class UserModel
 
         return mysqli_fetch_assoc($result);
     }
+
+    public function getAll()
+    {
+        $query = "SELECT * FROM users
+                ORDER BY id_user DESC";
+
+        return mysqli_query(
+            $this->conn,
+            $query
+        );
+    }
 }

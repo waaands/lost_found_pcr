@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2026 at 06:46 PM
+-- Generation Time: Jul 01, 2026 at 05:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -70,7 +70,12 @@ INSERT INTO `komentar` (`id_komentar`, `id_laporan`, `id_user`, `isi_komentar`, 
 (2, 4, 5, 'ini?', 'ikan.png', '2026-06-23 15:13:36'),
 (3, 5, 6, 'di baak bg', '', '2026-06-24 05:10:27'),
 (4, 4, 5, 'hi', '', '2026-06-26 02:50:45'),
-(5, 4, 5, 'hayo', 'ikan.png', '2026-06-26 02:51:00');
+(5, 4, 5, 'hayo', 'ikan.png', '2026-06-26 02:51:00'),
+(6, 9, 5, 'hi', '', '2026-06-29 08:51:37'),
+(7, 9, 5, 'ho', '', '2026-06-29 09:27:15'),
+(8, 9, 5, 'tes', '', '2026-06-29 11:41:33'),
+(9, 9, 5, 'tes', '', '2026-06-29 11:41:34'),
+(10, 9, 5, 'tus', '', '2026-06-29 11:42:02');
 
 -- --------------------------------------------------------
 
@@ -100,7 +105,9 @@ CREATE TABLE `laporan` (
 INSERT INTO `laporan` (`id_laporan`, `id_user`, `id_kategori`, `jenis_laporan`, `nama_barang`, `deskripsi`, `foto_barang`, `lokasi`, `tanggal_kejadian`, `status_barang`, `status_laporan`, `created_at`) VALUES
 (2, 5, 2, 'penemuan', 'laprak', '                    ini ikan', 'dkjlh.png', 'gsg', '2026-06-16', 'dipegang_sendiri', 'aktif', '2026-06-16 06:07:43'),
 (4, 6, 1, 'kehilangan', 'tes anu', 'anu', 'ikan.png', 'gsg', '2026-06-03', 'dipegang_sendiri', 'aktif', '2026-06-23 13:57:17'),
-(5, 5, 5, 'penemuan', 'tas', '                    tas hilang warna hitam', 'bas.jpg', 'amphi', '2026-06-24', 'dipegang_sendiri', 'aktif', '2026-06-24 05:09:25');
+(5, 5, 5, 'penemuan', 'tas', '                    tas hilang warna hitam', 'bas.jpg', 'amphi', '2026-06-24', 'dipegang_sendiri', 'selesai', '2026-06-24 05:09:25'),
+(8, 5, 1, 'kehilangan', 'laprak', '                    ddd', 'logo.png', 'gsg', '2026-06-29', 'dipegang_sendiri', 'aktif', '2026-06-28 23:43:38'),
+(9, 5, 1, 'kehilangan', 'buku', '                    buku', 'Honda-BeAT-FI-Black.jpg', 'masjid', '2026-06-05', 'dipegang_sendiri', 'aktif', '2026-06-29 01:44:19');
 
 -- --------------------------------------------------------
 
@@ -143,7 +150,8 @@ INSERT INTO `users` (`id_user`, `nim`, `nama_lengkap`, `email`, `password`, `rol
 (3, '2355201011', 'Siti Rahma', 'rahma@mahasiswa.pcr.ac.id', '123456', 'mahasiswa', '2026-06-16 03:41:12'),
 (4, '2355201012', 'Andi Pratama', 'andi@mahasiswa.pcr.ac.id', '123456', 'mahasiswa', '2026-06-16 03:41:12'),
 (5, '2555301014', 'ahmad firqo dzakwan', 'firqo25ti@mahasiswa.pcr.ac.id', '12345678', 'mahasiswa', '2026-06-16 04:32:22'),
-(6, '2555301015', 'anu', 'anu@mahasiswa.pcr.ac.id', '12345678', 'mahasiswa', '2026-06-16 06:18:08');
+(6, '2555301015', 'anu', 'anu@mahasiswa.pcr.ac.id', '12345678', 'mahasiswa', '2026-06-16 06:18:08'),
+(7, '2555301016', 'cicoco', 'cicoco@mahasiswa.pcr.ac.id', '12345678', 'mahasiswa', '2026-06-28 06:33:52');
 
 --
 -- Indexes for dumped tables
@@ -201,13 +209,13 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `laporan`
 --
 ALTER TABLE `laporan`
-  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `serah_terima`
@@ -219,7 +227,7 @@ ALTER TABLE `serah_terima`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

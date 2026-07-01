@@ -19,9 +19,13 @@ class KomentarController
             $this->komentarModel
                 ->insert($_POST);
 
+            $from = $_POST['from'];
+
             header(
                 "Location: index.php?aksi=detail&id=" .
-                $_POST['id_laporan']
+                $_POST['id_laporan'] .
+                "&from=" .
+                $from
             );
             exit;
         }

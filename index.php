@@ -12,11 +12,11 @@ require_once "app/controllers/KomentarController.php";
 require_once "app/controllers/AdminController.php";
 
 $auth = new AuthController($conn);
-$dashboard = new DashboardController();
-$profile = new ProfileController();
+$dashboard = new DashboardController($conn);
+$profileController = new ProfileController($conn);
 $laporan = new LaporanController($conn);
 $komentar = new KomentarController($conn);
-$admin = new AdminController();
+$admin = new AdminController($conn);
 
 $aksi = isset($_GET['aksi']) ? $_GET['aksi'] : 'dashboard';
 
@@ -63,6 +63,10 @@ switch ($aksi)
         $auth->login();
         break;
 
+    case 'logout':
+        $auth->logout();
+        break;
+    
     case 'prosesLogin':
         $auth->prosesLogin();
         break;
@@ -86,7 +90,7 @@ switch ($aksi)
 
     // PROFILE
     case 'profile':
-        $profile->index();
+        $profileController->index();
         break;
 
     // LAPORAN

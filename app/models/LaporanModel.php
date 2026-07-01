@@ -87,6 +87,34 @@ class LaporanModel
         );
     }
 
+    public function getStatistik()
+    {
+        $query = mysqli_query($this->conn,"
+            SELECT
+            COUNT(*) AS total,
+            SUM(jenis_laporan='kehilangan') AS kehilangan,
+            SUM(jenis_laporan='penemuan') AS penemuan,
+            SUM(status_laporan='aktif') AS aktif,
+            SUM(status_laporan='selesai') AS selesai
+            FROM laporan
+        ");
+
+        return mysqli_fetch_assoc($query);
+    }
+
+    public function getLaporanTerbaru()
+    {
+        $query = mysqli_query($this->conn,"
+            SELECT *
+            FROM laporan
+            WHERE status_laporan = 'aktif'
+            ORDER BY id_laporan DESC
+            LIMIT 4
+        ");
+
+        return $query;
+    }
+
     public function filter($jenis)
     {
         $query = "
