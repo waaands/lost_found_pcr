@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2026 at 05:58 AM
+-- Generation Time: Jul 03, 2026 at 02:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -61,22 +61,6 @@ CREATE TABLE `komentar` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `komentar`
---
-
-INSERT INTO `komentar` (`id_komentar`, `id_laporan`, `id_user`, `isi_komentar`, `foto_bukti`, `created_at`) VALUES
-(1, 2, 5, '        hi', NULL, '2026-06-16 06:16:38'),
-(2, 4, 5, 'ini?', 'ikan.png', '2026-06-23 15:13:36'),
-(3, 5, 6, 'di baak bg', '', '2026-06-24 05:10:27'),
-(4, 4, 5, 'hi', '', '2026-06-26 02:50:45'),
-(5, 4, 5, 'hayo', 'ikan.png', '2026-06-26 02:51:00'),
-(6, 9, 5, 'hi', '', '2026-06-29 08:51:37'),
-(7, 9, 5, 'ho', '', '2026-06-29 09:27:15'),
-(8, 9, 5, 'tes', '', '2026-06-29 11:41:33'),
-(9, 9, 5, 'tes', '', '2026-06-29 11:41:34'),
-(10, 9, 5, 'tus', '', '2026-06-29 11:42:02');
-
 -- --------------------------------------------------------
 
 --
@@ -93,8 +77,7 @@ CREATE TABLE `laporan` (
   `foto_barang` varchar(255) DEFAULT NULL,
   `lokasi` varchar(100) DEFAULT NULL,
   `tanggal_kejadian` date NOT NULL,
-  `status_barang` enum('dipegang_sendiri','dititip_baak') DEFAULT 'dipegang_sendiri',
-  `status_laporan` enum('aktif','selesai') DEFAULT 'aktif',
+  `status_laporan` enum('aktif','selesai','baak') DEFAULT 'aktif',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -102,27 +85,26 @@ CREATE TABLE `laporan` (
 -- Dumping data for table `laporan`
 --
 
-INSERT INTO `laporan` (`id_laporan`, `id_user`, `id_kategori`, `jenis_laporan`, `nama_barang`, `deskripsi`, `foto_barang`, `lokasi`, `tanggal_kejadian`, `status_barang`, `status_laporan`, `created_at`) VALUES
-(2, 5, 2, 'penemuan', 'laprak', '                    ini ikan', 'dkjlh.png', 'gsg', '2026-06-16', 'dipegang_sendiri', 'aktif', '2026-06-16 06:07:43'),
-(4, 6, 1, 'kehilangan', 'tes anu', 'anu', 'ikan.png', 'gsg', '2026-06-03', 'dipegang_sendiri', 'aktif', '2026-06-23 13:57:17'),
-(5, 5, 5, 'penemuan', 'tas', '                    tas hilang warna hitam', 'bas.jpg', 'amphi', '2026-06-24', 'dipegang_sendiri', 'selesai', '2026-06-24 05:09:25'),
-(8, 5, 1, 'kehilangan', 'laprak', '                    ddd', 'logo.png', 'gsg', '2026-06-29', 'dipegang_sendiri', 'aktif', '2026-06-28 23:43:38'),
-(9, 5, 1, 'kehilangan', 'buku', '                    buku', 'Honda-BeAT-FI-Black.jpg', 'masjid', '2026-06-05', 'dipegang_sendiri', 'aktif', '2026-06-29 01:44:19');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `serah_terima`
---
-
-CREATE TABLE `serah_terima` (
-  `id_serah_terima` int(11) NOT NULL,
-  `id_laporan` int(11) NOT NULL,
-  `id_user_konfirmasi` int(11) NOT NULL,
-  `foto_bukti` varchar(255) NOT NULL,
-  `catatan` text DEFAULT NULL,
-  `tanggal_konfirmasi` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `laporan` (`id_laporan`, `id_user`, `id_kategori`, `jenis_laporan`, `nama_barang`, `deskripsi`, `foto_barang`, `lokasi`, `tanggal_kejadian`, `status_laporan`, `created_at`) VALUES
+(21, 23, 1, 'kehilangan', 'Headset Bluetooth', 'Headset hilang setelah praktikum di labor komputer.', 'bpw.jpg', 'Lab Komputer 2', '2026-06-10', 'aktif', '2026-07-03 06:05:37'),
+(22, 24, 2, 'kehilangan', 'Kartu Identitas PCR', 'Kartu mahasiswa hilang saat perjalanan ke kampus.', 'spotify-card (1).png', 'Gedung A', '2026-06-11', 'selesai', '2026-07-03 06:05:37'),
+(23, 25, 5, 'penemuan', 'Tas Hitam', 'Menemukan tas hitam di kantin PCR.', 'download (10).jpg', 'Kantin PCR', '2026-06-12', 'baak', '2026-07-03 06:05:37'),
+(24, 26, 6, 'kehilangan', 'Kunci Motor Honda', 'Kunci motor hilang di area parkir.', 'Honda-BeAT-FI-Black.jpg', 'Parkiran Gedung B', '2026-06-13', 'aktif', '2026-07-03 06:05:37'),
+(26, 28, 7, 'kehilangan', 'Modul Praktikum Basis Data', 'Modul praktikum tertinggal setelah kelas selesai.', 'bpw.jpg', 'Ruang ICT-304', '2026-06-15', 'aktif', '2026-07-03 06:05:37'),
+(27, 29, 3, 'kehilangan', 'Mouse Wireless', 'Mouse wireless warna hitam hilang.', 'dkjlh.png', 'Perpustakaan', '2026-06-16', 'selesai', '2026-07-03 06:05:37'),
+(28, 30, 4, 'penemuan', 'Jaket Hitam', 'Jaket ditemukan di depan Auditorium.', 'tl.webp', 'Auditorium', '2026-06-17', 'baak', '2026-07-03 06:05:37'),
+(29, 31, 2, 'kehilangan', 'Flashdisk 32GB', 'Flashdisk berisi tugas kuliah hilang.', 'logo.png', 'Lab Jaringan', '2026-06-18', 'aktif', '2026-07-03 06:05:37'),
+(30, 32, 8, 'penemuan', 'Boneka Ikan', 'Boneka kecil ditemukan di taman kampus.', 'ikan.png', 'Taman PCR', '2026-06-19', 'baak', '2026-07-03 06:05:37'),
+(31, 23, 5, 'kehilangan', 'Tas Laptop ASUS', 'Tas laptop warna abu-abu hilang.', 'download (10).jpg', 'Perpustakaan', '2026-06-20', 'aktif', '2026-07-03 06:05:37'),
+(32, 24, 6, 'penemuan', 'Kunci Kos', 'Menemukan satu set kunci kos.', 'Honda-BeAT-FI-Black.jpg', 'Lobby Gedung C', '2026-06-21', 'aktif', '2026-07-03 06:05:37'),
+(33, 25, 1, 'kehilangan', 'Laptop ASUS Vivobook', 'Laptop tertinggal setelah presentasi.', 'bpw.jpg', 'ICT-304', '2026-06-22', 'selesai', '2026-07-03 06:05:37'),
+(34, 26, 2, 'penemuan', 'KTM PCR', 'Menemukan KTM di area parkir.', 'logo_pcr.png', 'Parkiran PCR', '2026-06-23', 'aktif', '2026-07-03 06:05:37'),
+(35, 27, 3, 'kehilangan', 'Jam Tangan Casio', 'Jam tangan hilang saat olahraga.', 'tl.webp', 'Lapangan PCR', '2026-06-24', 'aktif', '2026-07-03 06:05:37'),
+(36, 28, 4, 'penemuan', 'Jaket Hoodie Abu', 'Jaket ditemukan di ruang kelas.', 'dkjlh.png', 'Ruang DYH-305', '2026-06-25', 'baak', '2026-07-03 06:05:37'),
+(37, 29, 7, 'kehilangan', 'Buku Organisasi Komputer', 'Buku hilang setelah perkuliahan.', 'bpw.jpg', 'Perpustakaan', '2026-06-26', 'aktif', '2026-07-03 06:05:37'),
+(38, 30, 8, 'penemuan', 'Power Bank Xiaomi', 'Power bank ditemukan di kantin.', 'spotify-card (1).png', 'Kantin PCR', '2026-06-27', 'baak', '2026-07-03 06:05:37'),
+(39, 31, 5, 'kehilangan', 'Tas Selempang', 'Tas kecil warna coklat hilang.', 'download (10).jpg', 'Gedung B', '2026-06-28', 'aktif', '2026-07-03 06:05:37'),
+(41, 33, 1, 'kehilangan', 'topi', 'topi hitam', '9b6605dd.jpg', 'parkiran gsg', '2026-07-01', 'aktif', '2026-07-03 06:08:34');
 
 -- --------------------------------------------------------
 
@@ -145,13 +127,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `nim`, `nama_lengkap`, `email`, `password`, `role`, `created_at`) VALUES
-(1, 'ADMIN001', 'Admin BAAK', 'admin@pcr.ac.id', 'admin123', 'admin', '2026-06-16 03:40:40'),
-(2, '2355201010', 'Budi Santoso', 'budi@mahasiswa.pcr.ac.id', '123456', 'mahasiswa', '2026-06-16 03:41:12'),
-(3, '2355201011', 'Siti Rahma', 'rahma@mahasiswa.pcr.ac.id', '123456', 'mahasiswa', '2026-06-16 03:41:12'),
-(4, '2355201012', 'Andi Pratama', 'andi@mahasiswa.pcr.ac.id', '123456', 'mahasiswa', '2026-06-16 03:41:12'),
-(5, '2555301014', 'ahmad firqo dzakwan', 'firqo25ti@mahasiswa.pcr.ac.id', '12345678', 'mahasiswa', '2026-06-16 04:32:22'),
-(6, '2555301015', 'anu', 'anu@mahasiswa.pcr.ac.id', '12345678', 'mahasiswa', '2026-06-16 06:18:08'),
-(7, '2555301016', 'cicoco', 'cicoco@mahasiswa.pcr.ac.id', '12345678', 'mahasiswa', '2026-06-28 06:33:52');
+(1, 'ADMIN', 'admin cico', 'admin@pcr.ac.id', '$2y$10$vUAuJfqrZzi13.F.9wE7c.B1dPYOKXmCrD82D3XEgnjpiCZqs8osW', 'admin', '2026-07-03 06:00:46'),
+(23, '2255301011', 'Muhammad Rizky Pratama', 'rizky22ti@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'admin', '2026-07-03 05:38:24'),
+(24, '2255401012', 'Dinda Aulia Putri', 'dinda22si@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'mahasiswa', '2026-07-03 05:38:24'),
+(25, '2355301013', 'Fajar Ramadhan', 'fajar23ti@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'mahasiswa', '2026-07-03 05:38:24'),
+(26, '2355501014', 'Nabila Safitri', 'nabila23trk@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'mahasiswa', '2026-07-03 05:38:24'),
+(27, '2455301015', 'Rafi Maulana', 'rafi24ti@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'mahasiswa', '2026-07-03 05:38:24'),
+(28, '2455601016', 'Salsa Maharani', 'salsa24bd@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'mahasiswa', '2026-07-03 05:38:24'),
+(29, '2555301017', 'Iqbal Saputra', 'iqbal25ti@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'mahasiswa', '2026-07-03 05:38:24'),
+(30, '2555401018', 'Nadya Khairunnisa', 'nadya25si@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'mahasiswa', '2026-07-03 05:38:24'),
+(31, '2555501019', 'Kevin Christian', 'kevin25trk@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'mahasiswa', '2026-07-03 05:38:24'),
+(32, '2555701020', 'Aisyah Nurhaliza', 'aisyah25tet@mahasiswa.pcr.ac.id', '$2y$10$XGJesmuZwhKQ0XJq2LkKoups6nDpKzuvqMDah69Qa70YBzH.H36lO', 'mahasiswa', '2026-07-03 05:38:24'),
+(33, '2555301014', 'dzakwan', 'firqo25ti@mahasiswa.pcr.ac.id', '$2y$10$hRlDBSqtIF6SYIWYd7BnP.JikSdjx17jAh4TOn2KTymO8WujjYZT.', 'mahasiswa', '2026-07-03 06:07:25');
 
 --
 -- Indexes for dumped tables
@@ -180,14 +167,6 @@ ALTER TABLE `laporan`
   ADD KEY `fk_laporan_kategori` (`id_kategori`);
 
 --
--- Indexes for table `serah_terima`
---
-ALTER TABLE `serah_terima`
-  ADD PRIMARY KEY (`id_serah_terima`),
-  ADD UNIQUE KEY `id_laporan` (`id_laporan`),
-  ADD KEY `fk_serah_user` (`id_user_konfirmasi`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -203,31 +182,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `laporan`
 --
 ALTER TABLE `laporan`
-  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `serah_terima`
---
-ALTER TABLE `serah_terima`
-  MODIFY `id_serah_terima` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables
@@ -246,13 +219,6 @@ ALTER TABLE `komentar`
 ALTER TABLE `laporan`
   ADD CONSTRAINT `fk_laporan_kategori` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_laporan_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
-
---
--- Constraints for table `serah_terima`
---
-ALTER TABLE `serah_terima`
-  ADD CONSTRAINT `fk_serah_laporan` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_serah_user` FOREIGN KEY (`id_user_konfirmasi`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
