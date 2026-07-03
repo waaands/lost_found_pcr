@@ -56,6 +56,54 @@ class LaporanModel
         );
     }
 
+    public function insertAdmin($data)
+    {
+        $foto = $_FILES['foto_barang']['name'];
+
+        if($foto != "")
+        {
+            $tmp = $_FILES['foto_barang']['tmp_name'];
+
+            move_uploaded_file(
+                $tmp,
+                __DIR__ . "/../../public/uploads/barang/" . $foto
+            );
+        }
+
+        $query = "
+        INSERT INTO laporan
+        (
+            id_user,
+            id_kategori,
+            jenis_laporan,
+            nama_barang,
+            deskripsi,
+            foto_barang,
+            lokasi,
+            tanggal_kejadian,
+            status_laporan
+        )
+        VALUES
+        (
+            '{$data['id_user']}',
+            '{$data['id_kategori']}',
+            '{$data['jenis_laporan']}',
+            '{$data['nama_barang']}',
+            '{$data['deskripsi']}',
+            '$foto',
+            '{$data['lokasi']}',
+            '{$data['tanggal_kejadian']}',
+            'dititip_baak',
+            'baak'
+        )
+        ";
+
+        return mysqli_query(
+            $this->conn,
+            $query
+        );
+    }
+
     public function search($keyword)
     {
         $query = "
@@ -66,25 +114,38 @@ class LaporanModel
         FROM laporan
 
         JOIN kategori
-        ON laporan.id_kategori =
-        kategori.id_kategori
+        ON laporan.id_kategori = kategori.id_kategori
 
         JOIN users
-        ON laporan.id_user =
-        users.id_user
+        ON laporan.id_user = users.id_user
 
         WHERE
+        (
             nama_barang LIKE '%$keyword%'
-            OR
-            deskripsi LIKE '%$keyword%'
+            OR deskripsi LIKE '%$keyword%'
+        )
+        AND status_laporan IN ('aktif','baak')
 
         ORDER BY laporan.id_laporan DESC
         ";
 
-        return mysqli_query(
-            $this->conn,
-            $query
-        );
+        return mysqli_query($this->conn,$query);
+    }
+
+    public function cariAdmin($keyword)
+    {
+        $query = "
+        SELECT laporan.*, users.nama_lengkap, kategori.nama_kategori
+        FROM laporan
+        JOIN users ON laporan.id_user = users.id_user
+        JOIN kategori ON laporan.id_kategori = kategori.id_kategori
+        WHERE
+            laporan.nama_barang LIKE '%$keyword%'
+            OR users.nama_lengkap LIKE '%$keyword%'
+        ORDER BY laporan.id_laporan DESC
+        ";
+
+        return mysqli_query($this->conn,$query);
     }
 
     public function getStatistik()
@@ -95,24 +156,65 @@ class LaporanModel
             SUM(jenis_laporan='kehilangan') AS kehilangan,
             SUM(jenis_laporan='penemuan') AS penemuan,
             SUM(status_laporan='aktif') AS aktif,
-            SUM(status_laporan='selesai') AS selesai
+            SUM(status_laporan='baak') AS baak
             FROM laporan
         ");
 
         return mysqli_fetch_assoc($query);
     }
 
-    public function getLaporanTerbaru()
+    public function getStatistikAdmin()
     {
-        $query = mysqli_query($this->conn,"
-            SELECT *
+        $query=mysqli_query($this->conn,"
+            SELECT
+            COUNT(*) total_laporan,
+            (SELECT COUNT(*) FROM users) total_user,
+            (SELECT COUNT(*) FROM kategori) total_kategori,
+            SUM(status_laporan='baak') barang_baak
             FROM laporan
-            WHERE status_laporan = 'aktif'
+        ");
+
+        return mysqli_fetch_assoc($query);
+    }
+
+    public function getLaporanTerbaruAdmin()
+    {
+        return mysqli_query($this->conn,"
+            SELECT
+            nama_barang,
+            foto_barang,
+            status_laporan
+            FROM laporan
             ORDER BY id_laporan DESC
             LIMIT 4
         ");
+    }
 
-        return $query;
+    public function getLaporanTerbaru()
+    {
+        $query = "
+        SELECT
+            laporan.*,
+            kategori.nama_kategori,
+            users.nama_lengkap
+        FROM laporan
+
+        JOIN kategori
+        ON laporan.id_kategori = kategori.id_kategori
+
+        JOIN users
+        ON laporan.id_user = users.id_user
+
+        WHERE status_laporan IN ('aktif','baak')
+
+        ORDER BY laporan.id_laporan DESC
+        LIMIT 4
+        ";
+
+        return mysqli_query(
+            $this->conn,
+            $query
+        );
     }
 
     public function filter($jenis)
@@ -125,22 +227,19 @@ class LaporanModel
         FROM laporan
 
         JOIN kategori
-        ON laporan.id_kategori =
-        kategori.id_kategori
+        ON laporan.id_kategori = kategori.id_kategori
 
         JOIN users
-        ON laporan.id_user =
-        users.id_user
+        ON laporan.id_user = users.id_user
 
-        WHERE jenis_laporan = '$jenis'
+        WHERE
+            jenis_laporan = '$jenis'
+            AND status_laporan IN ('aktif','baak')
 
         ORDER BY laporan.id_laporan DESC
         ";
 
-        return mysqli_query(
-            $this->conn,
-            $query
-        );
+        return mysqli_query($this->conn,$query);
     }
 
     // Ambil semua laporan
@@ -155,11 +254,15 @@ class LaporanModel
 
         JOIN kategori
         ON laporan.id_kategori =
-           kategori.id_kategori
+            kategori.id_kategori
 
         JOIN users
         ON laporan.id_user =
-           users.id_user
+            users.id_user
+
+        WHERE laporan.status_laporan = 'aktif'
+        OR
+        status_laporan='baak'
 
         ORDER BY laporan.id_laporan DESC
         ";
@@ -168,6 +271,38 @@ class LaporanModel
             $this->conn,
             $query
         );
+    }
+
+    public function getAllAdmin()
+    {
+        $query = "
+        SELECT
+            laporan.*,
+            kategori.nama_kategori,
+            users.nama_lengkap
+        FROM laporan
+
+        JOIN kategori
+        ON laporan.id_kategori = kategori.id_kategori
+
+        JOIN users
+        ON laporan.id_user = users.id_user
+
+        ORDER BY laporan.id_laporan DESC
+        ";
+
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function updateStatus($id, $status)
+    {
+        $query = "
+        UPDATE laporan
+        SET status_laporan = '$status'
+        WHERE id_laporan = '$id'
+        ";
+
+        return mysqli_query($this->conn, $query);
     }
 
     // Ambil 1 laporan
@@ -255,13 +390,20 @@ class LaporanModel
         return mysqli_fetch_assoc($result);
     }
 
-    public function getByUser($id_user)
+    public function getByUser($id)
     {
         $query = "
-        SELECT *
+        SELECT
+            laporan.*,
+            kategori.nama_kategori
         FROM laporan
-        WHERE id_user = '$id_user'
-        ORDER BY id_laporan DESC
+
+        JOIN kategori
+        ON laporan.id_kategori = kategori.id_kategori
+
+        WHERE laporan.id_user='$id'
+
+        ORDER BY laporan.id_laporan DESC
         ";
 
         return mysqli_query(
@@ -269,6 +411,7 @@ class LaporanModel
             $query
         );
     }
+
 
     // Hapus laporan
     public function delete($id)

@@ -1,0 +1,84 @@
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f8f9fa;
+}
+
+.main-content{
+    margin-left:260px;
+    min-height:100vh;
+    background:#f8f9fa;
+}
+
+.content{
+    padding:30px;
+}
+
+.navbar{
+    height:80px;
+}
+
+.card{
+    border-radius:18px;
+}
+
+.btn-outline-info{
+    transition:.2s;
+}
+
+.btn-outline-info:hover{
+    color:#fff;
+}
+
+.btn-info,
+.btn-warning,
+.btn-success,
+.btn-danger{
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-info:hover{
+    background:#fff;
+    border-color:#0dcaf0;
+    color:#0dcaf0;
+}
+
+.btn-warning:hover{
+    background:#fff;
+    border-color:#ffc107;
+    color:#ffc107;
+}
+
+.btn-success:hover{
+    background:#fff;
+    border-color:#198754;
+    color:#198754;
+}
+
+.btn-danger:hover{
+    background:#fff;
+    border-color:#dc3545;
+    color:#dc3545;
+}
+
+.input-group-text{
+    border-right:none;
+}
+
+.input-group .form-control{
+    border-left:none;
+    box-shadow:none;
+}
+
+.input-group .form-control:focus{
+    box-shadow:none;
+}
+
+.table th{
+    white-space:nowrap;
+    vertical-align:middle;
+}
+
+.table td{
+    vertical-align:middle;
+}

@@ -1,0 +1,95 @@
+body{
+    font-family:'Poppins',sans-serif;
+}
+
+/* ================= BUTTON ================= */
+
+.btn-info{
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-info:hover{
+    background:#fff;
+    border-color:#0dcaf0;
+    color:#0dcaf0;
+}
+
+.btn-success{
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-success:hover{
+    background:#fff;
+    border-color:#198754;
+    color:#198754;
+}
+
+.btn-warning{
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-warning:hover{
+    background:#fff;
+    border-color:#FFC107;
+    color:#FFC107;
+}
+
+.btn-danger{
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-danger:hover{
+    background:#fff;
+    border-color:#dc3545;
+    color:#dc3545;
+}
+
+.btn-outline-info{
+    transition:.2s;
+}
+
+.btn-outline-info:hover{
+    background:#0dcaf0;
+    border-color:#0dcaf0;
+    color:#fff !important;
+}
+
+/* ================= CUSTOM BUTTON ================= */
+
+.btn-success-custom{
+    background:#198754;
+    border:1px solid #198754;
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-success-custom:hover{
+    background:#fff;
+    color:#198754;
+}
+
+.btn-warning-custom{
+    background:#FFC107;
+    border:1px solid #FFC107;
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-warning-custom:hover{
+    background:#fff;
+    color:#FFC107;
+}
+
+/* ================= CARD ================= */
+
+.action-card{
+    transition:.2s;
+}
+
+.action-card:hover{
+    transform:translateY(-5px);
+}

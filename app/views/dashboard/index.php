@@ -13,19 +13,10 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <style>
-    .action-card {
-        transition: .2s;
-    }
-
-    .action-card:hover {
-        transform: translateY(-5px);
-    }
-    </style>
+    <link rel="stylesheet" href="public/assets/css/user.css">
 </head>
 
 <body class="bg-light" style="font-family:'Poppins',sans-serif;">
-
     <div class="container py-5">
         <div class="card-body">
             <div class="row align-items-center">
@@ -43,7 +34,7 @@
                     <?php } ?>
                     <?= $_SESSION['nama']; ?>
                     <?php } else { ?>
-                    <a href="index.php?aksi=login" class="btn btn-info text-white">
+                    <a href="index.php?aksi=login" class="btn btn-info ">
                         Login
                     </a>
                     <?php } ?>
@@ -73,7 +64,7 @@
                             Politeknik Caltex Riau.
                         </p>
                         <?php if($_SESSION['role'] == "admin") { ?>
-                        <span class="badge bg-warning text-dark">
+                        <span class="badge bg-warning">
                             Admin
                         </span>
                         <?php } else { ?>
@@ -252,13 +243,13 @@
                 <div class="card bg-warning-subtle border-0 shadow-sm rounded-4">
                     <div class="card-body text-center">
                         <h6 class="text-muted">
-                            Laporan Selesai
+                            Barang di BAAK
                         </h6>
                         <h1 class="fw-bold text-info">
-                            <?= $statistik['selesai']; ?>
+                            <?= $statistik['baak']; ?>
                         </h1>
                         <small class="text-muted">
-                            Sudah Selesai
+                            Barang di BAAK
                         </small>
                     </div>
                 </div>
@@ -273,27 +264,92 @@
 
             <?php while($row=mysqli_fetch_assoc($laporanTerbaru)){ ?>
             <div class="col-lg-3 col-md-6">
+
                 <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                    <?php if($row['foto_barang']!=""){ ?>
+
                     <img src="public/uploads/barang/<?= $row['foto_barang']; ?>" class="card-img-top rounded-top-4"
                         style="height:200px;object-fit:cover;">
-                    <div class="card-body p-3">
-                        <h6 class="text-muted mb-1"><?= $row['nama_barang']; ?></h6>
-                        <p class="text-muted small mb-2"><?= ucfirst($row['jenis_laporan']); ?></p>
-                        <small class="d-block text-muted"><?= $row['lokasi']; ?></small>
-                        <small
-                            class="d-block text-muted mb-3"><?= date('d M Y',strtotime($row['tanggal_kejadian'])); ?></small>
-                        <div class="d-flex justify-content-between align-items-center mt-auto">
-                            <a href="index.php?aksi=detail&id=<?= $row['id_laporan']; ?>&from=dashboard"
-                                class="btn btn-info btn-sm text-white">
-                                Detail
-                            </a>
+
+                    <?php }else{ ?>
+
+                    <img src="public/assets/image/no-image.png" class="card-img-top rounded-top-4"
+                        style="height:200px;object-fit:cover;">
+
+                    <?php } ?>
+
+                    <div class="card-body d-flex flex-column">
+
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+
+                            <?php
+                if($row['status_laporan']=="aktif"){
+                    $badge="bg-primary";
+                    $status="Aktif";
+                }elseif($row['status_laporan']=="baak"){
+                    $badge="bg-warning text-dark";
+                    $status="Di BAAK";
+                }else{
+                    $badge="bg-success";
+                    $status="Selesai";
+                }
+                ?>
+
+                            <span class="badge <?= $badge; ?>">
+                                <?= $status; ?>
+                            </span>
+
+                            <small class="text-muted">
+                                <?= date('d M Y',strtotime($row['tanggal_kejadian'])); ?>
+                            </small>
+
                         </div>
+
+                        <h6 class="fw-bold mb-2">
+                            <?= $row['nama_barang']; ?>
+                        </h6>
+
+                        <p class="text-muted mb-2">
+                            <?= $row['nama_kategori']; ?>
+                        </p>
+
+                        <p class="mb-2">
+
+                            <span
+                                class="badge <?= $row['jenis_laporan']=="kehilangan" ? "bg-danger" : "bg-success"; ?>">
+
+                                <?= ucfirst($row['jenis_laporan']); ?>
+
+                            </span>
+
+                        </p>
+
+                        <p class="mb-1">
+
+                            <i class="bi bi-geo-alt-fill text-danger"></i>
+
+                            <?= $row['lokasi']; ?>
+
+                        </p>
+
+                        <a href="index.php?aksi=detail&id=<?= $row['id_laporan']; ?>&from=dashboard"
+                            class="btn btn-info  btn-sm flex-fill">
+
+                            Detail
+
+                        </a>
+
                     </div>
+
                 </div>
+
             </div>
             <?php } ?>
 
         </div>
+
+
         <footer class="mt-5 py-4 border-top">
             <div class="container">
 
@@ -323,6 +379,7 @@
 
             </div>
         </footer>
+    </div>
 </body>
 
 </html>

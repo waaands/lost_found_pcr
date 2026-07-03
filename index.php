@@ -10,6 +10,7 @@ require_once "app/controllers/ProfileController.php";
 require_once "app/controllers/LaporanController.php";
 require_once "app/controllers/KomentarController.php";
 require_once "app/controllers/AdminController.php";
+require_once "app/controllers/KategoriController.php";
 
 $auth = new AuthController($conn);
 $dashboard = new DashboardController($conn);
@@ -17,6 +18,7 @@ $profileController = new ProfileController($conn);
 $laporan = new LaporanController($conn);
 $komentar = new KomentarController($conn);
 $admin = new AdminController($conn);
+$kategori = new KategoriController($conn);
 
 $aksi = isset($_GET['aksi']) ? $_GET['aksi'] : 'dashboard';
 
@@ -27,6 +29,7 @@ $aksi = isset($_GET['aksi']) ? $_GET['aksi'] : 'dashboard';
         'edit',
         'update',
         'hapus',
+        'selesai',
         'komentar',
         'admin_laporan',
         'admin_user',
@@ -122,6 +125,10 @@ switch ($aksi)
         $laporan->hapus();
         break;
 
+    case 'selesai':
+        $laporan->selesai();
+        break;
+
     // KOMENTAR
     case 'komentar':
         $komentar->simpan();
@@ -138,6 +145,75 @@ switch ($aksi)
 
     case 'admin_user':
         $admin->user();
+        break;
+
+    case 'ubah_status':
+        $admin->ubahStatus();
+        break;
+
+    case 'admin_tambah_laporan':
+        $admin->tambahLaporan();
+        break;
+
+    case 'admin_simpan_laporan':
+        $admin->simpanLaporan();
+        break;
+
+    case 'admin_edit_laporan':
+        $admin->editLaporan();
+        break;
+
+    case 'admin_update_laporan':
+        $admin->updateLaporan();
+        break;
+
+    case 'admin_hapus_laporan':
+        $admin->hapusLaporan();
+        break;
+        
+    case 'admin_user_tambah':
+        $admin->tambahUser();
+        break;
+
+    case 'admin_user_simpan':
+        $admin->simpanUser();
+        break;
+
+    case 'admin_user_edit':
+        $admin->editUser();
+        break;
+
+    case 'admin_user_update':
+        $admin->updateUser();
+        break;
+
+    case 'admin_user_hapus':
+        $admin->hapusUser();
+        break;
+
+    // KATEGORI
+    case 'kategori':
+        $kategori->index();
+        break;
+
+    case 'kategori_tambah':
+        $kategori->tambah();
+        break;
+
+    case 'kategori_simpan':
+        $kategori->simpan();
+        break;
+
+    case 'kategori_edit':
+        $kategori->edit();
+        break;
+
+    case 'kategori_update':
+        $kategori->update();
+        break;
+
+    case 'kategori_hapus':
+        $kategori->hapus();
         break;
 
     default:

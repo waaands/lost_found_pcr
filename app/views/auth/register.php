@@ -11,14 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="public/assets/css/user.css">
 
-    <style>
-        .btn-outline-info:hover{
-            color:#fff !important;
-            background:#0dcaf0;
-            border-color:#0dcaf0;
-        }
-    </style>
 
 </head>
 

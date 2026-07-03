@@ -29,6 +29,7 @@ class LaporanController
             $laporan = $this->laporanModel->getAll();
         }
 
+        $statistik = $this->laporanModel->getStatistik();
         require __DIR__ . "/../views/laporan/index.php";
     }
 
@@ -123,6 +124,22 @@ class LaporanController
         }
 
         $this->laporanModel->delete($id);
+
+        header("Location: index.php?aksi=profile");
+        exit;
+    }
+
+    public function selesai()
+    {
+        $id = $_GET['id'];
+
+        $laporan = $this->laporanModel->getById($id);
+
+        if(!$laporan || $laporan['id_user'] != $_SESSION['id_user']){
+            die("Akses ditolak");
+        }
+
+        $this->laporanModel->updateStatus($id,"selesai");
 
         header("Location: index.php?aksi=profile");
         exit;
