@@ -113,7 +113,7 @@
                             <div class="input-group">
                                 <input type="text" name="keyword" class="form-control"
                                     placeholder="Cari nama barang...">
-                                <button class="btn btn-info text-white" type="submit">
+                                <button class="btn btn-info" type="submit">
                                     Cari
                                 </button>
                             </div>

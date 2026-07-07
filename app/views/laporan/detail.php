@@ -215,7 +215,7 @@
 
                     </div>
 
-                    <button type="submit" name="kirim" class="btn btn-info text-white">
+                    <button type="submit" name="kirim" class="btn btn-info">
 
                         Kirim Komentar
 
