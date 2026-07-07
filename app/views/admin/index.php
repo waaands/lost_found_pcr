@@ -14,95 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="public/assets/css/admin.css">
-    <style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        overflow-x: hidden;
-        background: #f8f9fa;
-    }
-
-    /* Main Content */
-    .main-content {
-        flex: 1;
-        min-height: 100vh;
-        background: #f8f9fa;
-    }
-
-    .content {
-        padding: 30px;
-    }
-
-    /* Navbar */
-    .navbar {
-        height: 80px;
-    }
-
-    /* Button Hover */
-    .btn-outline-info {
-        transition: .2s;
-    }
-
-    .btn-outline-info:hover {
-        color: #fff;
-    }
-
-    .btn-info,
-    .btn-warning,
-    .btn-success,
-    .btn-danger {
-        transition: .2s;
-    }
-
-    .btn-info {
-        color: #fff;
-    }
-
-    .btn-info:hover {
-        background: #fff;
-        border-color: #0dcaf0;
-        color: #0dcaf0;
-    }
-
-    .btn-warning {
-        color: #fff;
-    }
-
-    .btn-warning:hover {
-        background: #fff;
-        border-color: #ffc107;
-        color: #ffc107;
-    }
-
-    .btn-success {
-        color: #fff;
-    }
-
-    .btn-success:hover {
-        background: #fff;
-        border-color: #198754;
-        color: #198754;
-    }
-
-    .btn-danger {
-        color: #fff;
-    }
-
-    .btn-danger:hover {
-        background: #fff;
-        border-color: #dc3545;
-        color: #dc3545;
-    }
-
-    /* Card */
-    .card {
-        border-radius: 18px;
-    }
-        .main-content {
-        margin-left: 260px;
-        min-height: 100vh;
-        background: #f8f9fa;
-    }
-    </style>
+    
 
 </head>
 
@@ -129,7 +41,7 @@
 
                 <a href="index.php?aksi=admin" class="btn btn-info text-start"">
 
-                    <i class="bi bi-speedometer2 me-2"></i>
+                    <i class=" bi bi-speedometer2 me-2"></i>
 
                     Dashboard
 
@@ -444,7 +356,35 @@
                 </div>
 
             </div>
+            <footer class="mt-5 py-4 border-top">
+                <div class="container">
 
+                    <div class="row align-items-center">
+
+                        <div class="col-md-6">
+                            <h5 class="fw-bold text-info mb-1">
+                                Lost & Found PCR
+                            </h5> <small class="text-muted">
+                                Sistem Informasi Barang Hilang dan Ditemukan<br>
+                                Politeknik Caltex Riau
+                            </small>
+                        </div>
+
+                        <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                            <small class="text-muted">
+                                © 2026 Lost & Found PCR
+                            </small>
+                            <br>
+                            <small class="text-muted">
+                                Developed by <a href="https://github.com/waaands" target="_blank"
+                                    class="text-decoration-none">Waaands</a>
+                            </small>
+                        </div>
+
+                    </div>
+
+                </div>
+            </footer>
         </main>
 
     </div>

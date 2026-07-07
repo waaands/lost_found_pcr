@@ -10,28 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="public/assets/css/admin.css">
-    <style>
-    .btn-warning-custom {
-        background: #FFC107;
-        border: 1px solid #FFC107;
-        color: #fff;
-        transition: .2s;
-    }
-
-    .btn-warning-custom:hover {
-        background: #fff;
-        border: 1px solid #FFC107;
-        color: #FFC107;
-    }
-
-    .btn-outline-info {
-        transition: .2s;
-    }
-
-    .btn-outline-info:hover {
-        color: #fff;
-    }
-    </style>
+    
 </head>
 
 <body class="bg-light" style="font-family:'Poppins',sans-serif;">

@@ -53,7 +53,7 @@
                     <input type="password" name="password" class="form-control" required>
                 </div>
 
-                <button type="submit" name="register" class="btn btn-info text-white w-100">
+                <button type="submit" name="register" class="btn btn-info w-100">
                     Register
                 </button>
 

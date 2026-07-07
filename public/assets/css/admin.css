@@ -1,6 +1,11 @@
+/* ===========================
+    GENERAL
+=========================== */
+
 body{
     font-family:'Poppins',sans-serif;
     background:#f8f9fa;
+    overflow-x:hidden;
 }
 
 .main-content{
@@ -17,49 +22,17 @@ body{
     height:80px;
 }
 
+/* ===========================
+    CARD
+=========================== */
+
 .card{
     border-radius:18px;
 }
 
-.btn-outline-info{
-    transition:.2s;
-}
-
-.btn-outline-info:hover{
-    color:#fff;
-}
-
-.btn-info,
-.btn-warning,
-.btn-success,
-.btn-danger{
-    color:#fff;
-    transition:.2s;
-}
-
-.btn-info:hover{
-    background:#fff;
-    border-color:#0dcaf0;
-    color:#0dcaf0;
-}
-
-.btn-warning:hover{
-    background:#fff;
-    border-color:#ffc107;
-    color:#ffc107;
-}
-
-.btn-success:hover{
-    background:#fff;
-    border-color:#198754;
-    color:#198754;
-}
-
-.btn-danger:hover{
-    background:#fff;
-    border-color:#dc3545;
-    color:#dc3545;
-}
+/* ===========================
+    SEARCH
+=========================== */
 
 .input-group-text{
     border-right:none;
@@ -74,6 +47,10 @@ body{
     box-shadow:none;
 }
 
+/* ===========================
+    TABLE
+=========================== */
+
 .table th{
     white-space:nowrap;
     vertical-align:middle;
@@ -81,4 +58,126 @@ body{
 
 .table td{
     vertical-align:middle;
+}
+
+.table img{
+    width:55px;
+    height:55px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
+/* ===========================
+    BUTTON OUTLINE
+=========================== */
+
+.btn-outline-info{
+    transition:.2s;
+}
+
+.btn-outline-info:hover{
+    background:#0dcaf0;
+    border-color:#0dcaf0;
+    color:#fff;
+}
+
+/* ===========================
+    BUTTON DEFAULT
+=========================== */
+
+.btn-info,
+.btn-warning,
+.btn-success,
+.btn-danger{
+    transition:.2s;
+}
+
+.btn-info{
+    color:#fff;
+}
+
+.btn-info:hover{
+    background:#fff;
+    border-color:#0dcaf0;
+    color:#0dcaf0;
+}
+
+.btn-warning{
+    color:#fff;
+}
+
+.btn-warning:hover{
+    background:#fff;
+    border-color:#FFC107;
+    color:#FFC107;
+}
+
+.btn-success{
+    color:#fff;
+}
+
+.btn-success:hover{
+    background:#fff;
+    border-color:#198754;
+    color:#198754;
+}
+
+.btn-danger{
+    color:#fff;
+}
+
+.btn-danger:hover{
+    background:#fff;
+    border-color:#dc3545;
+    color:#dc3545;
+}
+
+/* ===========================
+    BUTTON CUSTOM
+=========================== */
+
+.btn-success-custom{
+    background:#198754;
+    border:1px solid #198754;
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-success-custom:hover{
+    background:#fff;
+    border-color:#198754;
+    color:#198754;
+}
+
+.btn-warning-custom{
+    background:#FFC107;
+    border:1px solid #FFC107;
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-warning-custom:hover{
+    background:#fff;
+    border-color:#FFC107;
+    color:#FFC107;
+}
+
+.btn-baak{
+    background:#fd7e14;
+    border:1px solid #fd7e14;
+    color:#fff;
+    transition:.2s;
+}
+
+.btn-baak:hover{
+    background:#fff;
+    border-color:#fd7e14;
+    color:#fd7e14;
+}
+
+.main-content{
+    margin-left:260px;
+    min-height:100vh;
+    width: calc(100% - 260px);
+    background:#f8f9fa;
 }

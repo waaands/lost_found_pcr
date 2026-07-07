@@ -13,34 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 <link rel="stylesheet" href="public/assets/css/admin.css">
-    <style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: #f8f9fa;
-    }
-
-    .btn-success-custom {
-        background: #198754;
-        border: 1px solid #198754;
-        color: #fff;
-        transition: .2s;
-    }
-
-    .btn-success-custom:hover {
-        background: #fff;
-        border-color: #198754;
-        color: #198754;
-    }
-
-    .btn-outline-info {
-        transition: .2s;
-    }
-
-    .btn-outline-info:hover {
-        color: #fff;
-    }
-    </style>
-
+    
 </head>
 
 <body>
